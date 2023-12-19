@@ -18,7 +18,6 @@ class Customer:
   def full_name(self): 
     return f"{self._given_name} {self._family_name}"  
   
-
   
   @classmethod
   def all(cls):  

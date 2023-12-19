@@ -1,13 +1,9 @@
-from customer import Customer
-from restaurant import Restaurant
-
-
 class Review:
   reviews = [] # List to hold reviews instances
   
   def __init__(self, customer, restaurant, rating): 
     self.customer_obj = customer  # Initialize customer associated with the review
-    self.restaurant_obj =restaurant   # Initialize restaurant assocaited with the review
+    self.restaurant_obj = restaurant   # Initialize restaurant assocaited with the review
     self.rating_val = rating  # Initialize review rating
     customer.review_list.append(self)  # Add the review to the customer's authored reviews
     restaurant.reviews_received.append(self)  # Add the review to the restaurant's received reviews.
