@@ -1,87 +1,26 @@
-from tabulate import tabulate
+from customer import Customer
+from restaurant import Restaurant
+from review import Review
 
-class Customer:
-    customers = []
+# Create instances of customers and restaurants
+customer1 = Customer("John", "Doe")
+customer2 = Customer("Alice", "Smith")
+customer3 = Customer("Bob", "Johnson")
 
-    def __init__(self, given_name, family_name):
-        self._given_name = given_name
-        self._family_name = family_name
-        self.review_list = []
-        Customer.customers.append(self)
+restaurant1 = Restaurant("Restaurant A")
+restaurant2 = Restaurant("Restaurant B")
+restaurant3 = Restaurant("Restaurant C")
 
-    def full_name(self):
-        return f"{self._given_name} {self._family_name}"
+# Create reviews with instances
+review1 = Review(customer1, restaurant1, 4)
+review2 = Review(customer2, restaurant1, 5)
+review3 = Review(customer2, restaurant2, 3)
+review4 = Review(customer3, restaurant3, 2)
+review5 = Review(customer1, restaurant2, 4)
 
-# Fixed customer names
-customer_names = [
-    ("John", "Doe"),
-    ("Alice", "Smith"),
-    ("Bob", "Johnson"),
-    ("Emma", "Lee"),
-    ("Michael", "Brown")
-]
-
-# Create customers
-customers = [Customer(given_name, family_name) for given_name, family_name in customer_names]
-
-# Display customer data as a table using tabulate
-print("\nCustomer Data:")
-customer_table = [[f"Customer_{i + 1}", customer.full_name()] for i, customer in enumerate(customers)]
-print(tabulate(customer_table, headers=["ID", "Full Name"], tablefmt="grid"))
-
-class Restaurant:
-    def __init__(self, name):
-        self.name = name
-        self.reviews_received = []
-
-# Fixed restaurant names
-restaurant_names = [
-    "Restaurant A",
-    "Restaurant B",
-    "Restaurant C",
-    "Restaurant D",
-    "Restaurant E"
-]
-
-# Create restaurants
-restaurants = [Restaurant(name) for name in restaurant_names]
-
-# Display restaurant data as a table using tabulate
-print("\nRestaurant Data:")
-restaurant_table = [[f"Restaurant_{i + 1}", name] for i, name in enumerate(restaurant_names)]
-print(tabulate(restaurant_table, headers=["ID", "Name"], tablefmt="grid"))
-
-class Review:
-    reviews = []
-
-    def __init__(self, customer, restaurant, rating):
-        self.customer_obj = customer
-        self.restaurant_obj = restaurant
-        self.rating_val = rating
-        customer.review_list.append(self)
-        restaurant.reviews_received.append(self)
-        Review.reviews.append(self)
-
-# Fixed reviews
-reviews_data = [
-    (0, 0, 4),
-    (1, 0, 5),
-    (1, 1, 3),
-    (2, 2, 2),
-    (0, 1, 4)
-]
-
-# Create reviews
-reviews = [Review(customers[c], restaurants[r], rating) for c, r, rating in reviews_data]
-
-# Display review data as a table using tabulate
-print("\nReview Data:")
-review_table = [
-    [
-        f"Review {i + 1}",
-        reviews[i].customer_obj.full_name(),
-        reviews[i].restaurant_obj.name,
-        reviews[i].rating_val
-    ] for i in range(len(reviews))
-]
-print(tabulate(review_table, headers=["ID", "Customer", "Restaurant", "Rating"], tablefmt="grid"))
+# Test methods
+print("--- Testing Review Methods ---")
+print(review2.customer().full_name())
+print(review3.restaurant().get_name())
+print(review1.rating())
+print([str(review.customer().full_name()) for review in Review.all()])
