@@ -23,7 +23,7 @@ class Customer:
         return cls._all
 
     def restaurants(self):
-        return [review.restaurant().name() for review in self._reviews]
+        return list({review.restaurant().name() for review in self._reviews})
 
     def add_review(self, restaurant, rating):
         new_review = Review(self, restaurant, rating)
@@ -44,5 +44,5 @@ class Customer:
         customers_with_given_name = []
         for customer in cls._all:
             if customer._name == given_name:
-                customers_with_given_name.append(customer.full_name())  # Append the name, not the object
+                customers_with_given_name.append(customer.full_name())
         return customers_with_given_name
